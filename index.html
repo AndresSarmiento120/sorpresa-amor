@@ -1,0 +1,177 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>para mi Angela la que es mi amor eterno y bella</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      text-align: center;
+    }
+    #startBtn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: yellow;
+      border: none;
+      padding: 20px 40px;
+      border-radius: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 10;
+    }
+    /* Fondo de estrellas fijas */
+    .static-star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+    /* Estrellas fugaces */
+    .star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: fall 2s linear forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(50vh) scale(0.5); opacity: 0; }
+    }
+    .word {
+      position: absolute;
+      color: #FFD700;
+      font-size: 22px;
+      font-weight: bold;
+      opacity: 0;
+      animation: fadeInOut 4s ease forwards;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(0); }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
+    #finalMessage {
+      display: none;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      color: #FFD700;
+      font-size: 20px;
+      line-height: 1.5;
+      text-shadow: 0 0 10px black;
+      animation: fadeIn 3s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    #finalMessage button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #FFD700;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #finalMessage button:hover {
+      background: orange;
+    }
+  </style>
+</head>
+<body>
+  <button id="startBtn">Oprime para tu sorpresa</button>
+  <div id="finalMessage">
+    Mi amor hermoso,
+    A veces siento que no tengo las palabras suficientes para describir lo mucho que significas para mí.
+    Eres mi sueño hecho realidad, la razón por la que sonrío cada día y la persona que hace que todo en
+    mi vida tenga más sentido. Quizá no sea el novio perfecto, pero lo que sí tengo claro es que mi amor
+    por ti es inmenso y verdadero. Cada instante a tu lado me enseña lo afortunado que soy de tenerte, de
+    poder abrazarte y de compartir contigo mi vida. Este detalle es solo una forma pequeñita de recordarte
+    que te adoro, que eres mi todo, mi mejor amiga, mi cómplice y mi gran amor. Quiero que siempre tengas
+    presente que mi corazón late por ti, y que mi mayor deseo es hacerte feliz hoy y siempre.
+
+    Gracias por ser mi lugar seguro, por tu ternura, por tu paciencia y por enseñarme lo que significa amar
+    de verdad. Con todo mi amor infinito, Tu pingüinito 🐧💛
+
+    <br><br>
+    <button onclick="window.location.href='https://web-flores.netlify.app/datos/flores'">
+      🌸 Ver tu sorpresa 🌸
+    </button>
+  </div>
+
+  <script>
+    const words = [
+      "Hermosa", "Linda", "Preciosa", "Mi novia", "Mi vampireza", "Mi dueña",
+      "Amor", "Princesa", "Reina", "Corazón", "Mi cielo", "Mi vida", "Mi luz",
+      "Dulzura", "Ternura", "Encanto", "Chiquita", "Bonita", "Tesoro", "Mi niña"
+    ];
+    const startBtn = document.getElementById("startBtn");
+    const finalMessage = document.getElementById("finalMessage");
+
+    // Crear estrellas fijas en el fondo (centradas con margen de seguridad)
+    function createStaticStars() {
+      for (let i = 0; i < 120; i++) {
+        const s = document.createElement("div");
+        s.classList.add("static-star");
+        s.style.left = (Math.random() * (window.innerWidth * 0.8) + window.innerWidth * 0.1) + "px"; 
+        s.style.top = Math.random() * window.innerHeight + "px";
+        document.body.appendChild(s);
+      }
+    }
+    createStaticStars();
+
+    startBtn.addEventListener("click", () => {
+      startBtn.style.display = "none";
+
+      let wordIndex = 0;
+      const starInterval = setInterval(() => {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        // margen del 10% a los lados
+        star.style.left = (Math.random() * (window.innerWidth * 0.8) + window.innerWidth * 0.1) + "px";
+        document.body.appendChild(star);
+
+        setTimeout(() => {
+          const word = document.createElement("div");
+          word.classList.add("word");
+          word.innerText = words[wordIndex % words.length];
+          // misma lógica con margen
+          word.style.left = (Math.random() * (window.innerWidth * 0.8) + window.innerWidth * 0.1) + "px";
+          word.style.top = (window.innerHeight * 0.2 + Math.random() * (window.innerHeight * 0.6)) + "px";
+          document.body.appendChild(word);
+
+          setTimeout(() => word.remove(), 4000);
+          wordIndex++;
+          star.remove();
+        }, 2000);
+
+        if (wordIndex >= words.length) {
+          clearInterval(starInterval);
+          setTimeout(() => finalMessage.style.display = "block", 4000);
+        }
+      }, 800);
+    });
+  </script>
+</body>
+</html>
